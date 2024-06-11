@@ -35,3 +35,17 @@ def passa_alta(imagem):
     
     imagem_passa_alta = cv2.filter2D(imagem, -1, kernel_passa_alta)
     return imagem_passa_alta
+
+def bgr_to_cmyk(image):
+    b, g, r = cv2.split(image)
+    r = r / 255.0
+    g = g / 255.0
+    b = b / 255.0
+    
+    k = 1 - np.max([r, g, b], axis=0)
+    c = (1 - r - k) / (1 - k + 1e-10)
+    m = (1 - g - k) / (1 - k + 1e-10)
+    y = (1 - b - k) / (1 - k + 1e-10)
+    
+    cmyk = (np.dstack((c, m, y, k)) * 255).astype(np.uint8)
+    return cmyk
