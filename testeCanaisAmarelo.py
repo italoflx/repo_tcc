@@ -11,8 +11,6 @@ c, m, y, k = cv2.split(imagem_cmyk)
 
 imagem_cinza = cv2.cvtColor(imagem_cmyk, cv2.COLOR_BGR2GRAY)
 
-
-ret,thresh1 = cv2.threshold(imagem_cinza,127,255,cv2.THRESH_BINARY)
 _, imagem_binaria = cv2.threshold(y, 80, 255, cv2.THRESH_BINARY)
 
 edges = cv2.Canny(imagem_binaria, 100, 200)
