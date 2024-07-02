@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from utils import redimensionar_para_tela, bgr_to_cmyk
 
-imagem = cv2.imread(r'E:\projetos\imagensTcc\MotoG10_Finais\CamaraoVerde9x1.jpg')
+imagem = cv2.imread(r'E:\projetos\imagensTcc\MotoG10_Finais\CamaraoVerde2x1.jpg')
 cv2.imshow('original', redimensionar_para_tela(imagem))
 
 imagem_cmyk = bgr_to_cmyk(imagem)
@@ -17,6 +17,9 @@ contornos, _ = cv2.findContours(imagem_binaria, cv2.RETR_EXTERNAL, cv2.CHAIN_APP
 
 for contorno in contornos:
     cv2.drawContours(imagem_binaria, [contorno], 0, 255, -1)
+
+kernel = np.ones((5, 5), np.uint8)
+imagem_binaria = cv2.morphologyEx(imagem_binaria, cv2.MORPH_OPEN, kernel)
 
 imagem_mascarada_final = cv2.bitwise_and(imagem, imagem, mask=imagem_binaria)
 

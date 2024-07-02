@@ -13,6 +13,9 @@ imagem_cinza = cv2.cvtColor(imagem_cmyk, cv2.COLOR_BGR2GRAY)
 
 _, imagem_binaria = cv2.threshold(y, 80, 255, cv2.THRESH_BINARY)
 
+kernel = np.ones((5, 5), np.uint8)
+imagem_binaria = cv2.morphologyEx(imagem_binaria, cv2.MORPH_OPEN, kernel)
+
 imagem_mascarada_final = cv2.bitwise_and(imagem, imagem, mask=imagem_binaria)
 
 cv2.imshow('canal amarelo', redimensionar_para_tela(y))
